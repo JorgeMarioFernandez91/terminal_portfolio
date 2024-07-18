@@ -127,7 +127,11 @@ export default {
     .editor {
         display: flex;
         padding: 10px 0;
-        color: white;
+        color: rgb(212, 212, 212);
+
+        .line-numbers {
+            color: #888;
+        }
 
         .template,
         .div,

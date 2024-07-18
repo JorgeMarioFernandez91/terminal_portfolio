@@ -94,7 +94,7 @@ export default {
 
     .tab-container {
         display: flex;
-        background-color: #383838;
+        background-color: #34394d;
 
         .tab {
             color: white;

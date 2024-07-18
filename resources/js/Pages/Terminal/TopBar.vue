@@ -115,6 +115,7 @@ export default {
     .center {
         text-align: center;
         color: white;
+        font-weight: bold;
     }
 
     .right {
@@ -154,7 +155,7 @@ export default {
                 display: flex;
                 align-items: center;
 
-                background-color: #bd7324;
+                background-color: #c24a26;
                 border-radius: 25px;
 
                 svg {
@@ -166,7 +167,7 @@ export default {
     }
 
     svg {
-        fill: #bbb;
+        fill: white;
     }
 }
 </style>

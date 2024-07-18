@@ -183,7 +183,7 @@ export default {
             &:hover {
 
                 svg {
-                    fill: #bd7324
+                    fill: #31664e
                 }
             }
         }
@@ -224,12 +224,12 @@ export default {
     }
 
     .pop-over {
-        background-color: #555555;
+        background-color: #2d3142;
         position: absolute;
         width: 180px;
         right: 125px;
         bottom: 90px;
-        border: 2px solid #bd7324;
+        border: 2px solid #31664e;
         border-radius: 5px;
 
         .vue,
@@ -242,7 +242,7 @@ export default {
             color: white;
 
             .more-info {
-                color: #bd7324;
+                color: #31664e;
                 cursor: pointer;
                 font-weight: bold;
 
