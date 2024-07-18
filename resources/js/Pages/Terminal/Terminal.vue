@@ -17,7 +17,7 @@
 import TopBar from './TopBar.vue';
 import BottomBar from './BottomBar.vue';
 import Home from './Content/Home.vue';
-import About from './Content/About.vue';
+import About from './Content/About/About.vue';
 import Projects from './Content/Projects.vue';
 import Guestbook from './Content/GuestBook.vue';
 import Articles from './Content/Articles.vue';
@@ -37,7 +37,7 @@ export default {
 
     data() {
         return {
-            view: 'home',
+            view: 'about',
         };
     },
     methods: {

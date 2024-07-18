@@ -1,0 +1,143 @@
+<template>
+    <div class="work">
+        <!-- a terminal with line numbers on the left and some text on the right -->
+        <div class="editor">
+            <div class="line-numbers">
+                <!-- vfor every line number to 25 -->
+                <div
+                    class="line-number"
+                    style="margin-right: 10px;"
+                    v-for="i in 22"
+                >{{ i }}</div>
+            </div>
+            <div class="text">
+                <!-- open template -->
+                <div class="line"> {{ open() }}<span class="template">template</span>{{ close() }}</div>
+
+                <!-- open div with class -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span class="div">div</span> <span
+                        class="class">class</span>="<span class="class-name">work</span>"{{ close() }}<span
+                        class="personal"
+                    >Work</span>{{
+                        open() }}<span class="div">div</span>{{ close() }}</div>
+
+                <!-- profession -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
+                        class="p">p</span>{{ close() }}Profession: Web Developer{{
+                        open() }}/<span class="p">p</span>{{ close() }}</div>
+
+                <!-- employer: rentsync -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
+                        class="p">p</span>{{ close() }}Employer: Rentsync, IBM, CoffeeCo. {{ open() }}/<span
+                        class="p">p</span>{{ close()
+                    }} </div>
+
+                <!-- programming languages -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
+                        class="p">p</span>{{ close() }}Programming Languages: HTML, CSS, JavaScript, PHP, MySQL
+                    {{ open() }}/<span class="p">p</span>{{ close() }} </div>
+
+                <!-- frameworks -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
+                        class="p">p</span>{{ close() }}Frameworks: Laravel, Vue.js, Bootstrap, TailwindCSS {{ open()
+                    }}/<span class="p">p</span>{{ close() }} </div>
+
+                <!-- close div -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}/<span class="div">div</span>{{ close() }}</div>
+
+                <div class="line"> {{ open() }}/<span class="div">template</span>{{ close() }}</div>
+
+                <br>
+
+                <!-- open script -->
+                <div class="line"> {{ open() }}<span class="template">script</span>{{ close() }}</div>
+
+                <!-- export default -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp; <span class="div">export</span> <span
+                        class="class">default</span> {</div>
+
+                <!-- name -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="div">name</span>:
+                    '<span class="class-name">Work</span>',</div>
+
+                <!-- data -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span class="div">data</span>() {
+                </div>
+
+                <!-- return -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span
+                        class="div"
+                    >return</span> {</div>
+
+                <!-- return data properties -->
+                <div class="line">
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    loading: <span class="div">false</span>
+                </div>
+
+                <!-- close return -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</div>
+
+                <!-- close data -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }</div>
+
+                <!-- close export -->
+                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp; }</div>
+
+                <!-- close script -->
+                <div class="line"> {{ open() }}/<span class="template">script</span>{{ close() }}</div>
+
+
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    name: 'Work',
+    data() {
+        return {
+        };
+    },
+    methods: {
+        open() {
+            return '<'
+        },
+        close() {
+            return '>'
+        },
+    },
+    mounted() {
+    },
+};
+</script>
+
+<style
+    lang="scss"
+    scoped
+>
+.work {
+    font-weight: bold;
+
+    .editor {
+        display: flex;
+        padding: 10px 0;
+        color: white;
+
+        .template,
+        .div,
+        .p {
+            color: #ff5e5e;
+        }
+
+        .class {
+            color: #f7cd43;
+        }
+
+        .class-name {
+            color: rgb(109, 201, 35);
+        }
+    }
+}
+</style>
