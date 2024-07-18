@@ -1,9 +1,5 @@
 <template>
     <div class="main">
-        <!-- main is everything, background and fore-ground -->
-
-
-        <!-- terminal -->
         <Terminal />
     </div>
 </template>
@@ -23,14 +19,11 @@ export default {
 
     data() {
         return {
-            // Your data properties go here
         };
     },
     methods: {
-        // Your methods go here
     },
     mounted() {
-        // Code to run when the component is mounted
     },
 };
 </script>

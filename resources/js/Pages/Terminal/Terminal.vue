@@ -3,32 +3,49 @@
 
         <TopBar />
 
+        <Home v-if="view === 'home'" />
+        <About v-if="view === 'about'" />
+        <Projects v-if="view === 'projects'" />
+        <Guestbook v-if="view === 'guest-book'" />
+        <Articles v-if="view === 'articles'" />
 
-        <BottomBar />
+        <BottomBar @switchView="switchView" />
     </div>
 </template>
 
 <script>
 import TopBar from './TopBar.vue';
 import BottomBar from './BottomBar.vue';
+import Home from './Content/Home.vue';
+import About from './Content/About.vue';
+import Projects from './Content/Projects.vue';
+import Guestbook from './Content/GuestBook.vue';
+import Articles from './Content/Articles.vue';
+
 export default {
     name: 'Terminal',
 
     components: {
         TopBar,
         BottomBar,
+        Home,
+        About,
+        Projects,
+        Guestbook,
+        Articles,
     },
 
     data() {
         return {
-            // Your data properties here
+            view: 'home',
         };
     },
     methods: {
-        // Your methods here
+        switchView(view) {
+            this.view = view;
+        },
     },
     mounted() {
-        // Code to run when the component is mounted
     },
 };
 </script>
