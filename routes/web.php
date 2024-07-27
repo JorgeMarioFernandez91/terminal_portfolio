@@ -29,6 +29,16 @@ Route::get('/', function () {
     return Inertia::render('Main');
 })->name('main');
 
+// get coffeeco inside coffeeco folder
+Route::get('/coffeeco', function () {
+    return Inertia::render('CoffeeCo/CoffeeCo');
+})->name('coffeeco');
+
+// get checkout inside coffeeco folder
+Route::get('/coffeeco/checkout', function () {
+    return Inertia::render('CoffeeCo/Checkout');
+})->name('checkout');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

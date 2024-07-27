@@ -37,7 +37,7 @@ export default {
 
     data() {
         return {
-            view: 'about',
+            view: 'projects',
         };
     },
     methods: {
