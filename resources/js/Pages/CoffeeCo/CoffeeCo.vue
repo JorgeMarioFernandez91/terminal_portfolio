@@ -1,5 +1,8 @@
 <template>
-    <div class="coffeeco">
+    <div
+        class="coffeeco"
+        :class="productModalOpen ? 'obfuscate' : ''"
+    >
         <div class="banner-container">
             <Navbar :isMobile="isMobile" />
 
@@ -18,14 +21,14 @@
                     class="product"
                     v-for="product in products"
                     :key="product.name"
-                    @click="addToCart(product)"
+                    @click="openProductModal(product)"
                 >
                     <img
                         :src="product.image"
                         :alt="product.name"
                     />
                     <div class="name">{{ product.name }}</div>
-                    <div class="price">{{ product.price }}</div>
+                    <div class="price">${{ product.price.toFixed(2) }}</div>
                     <div class="name-fade-in">{{ product.name }}</div>
                     <div class="ingredients-fade-in">{{ product.ingredients }}</div>
                 </div>
@@ -135,7 +138,51 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+        </div>
 
+
+    </div>
+    <div
+        class="product-modal"
+        v-if="productModalOpen"
+        @mouseleave="mouseOutsideModal = true"
+        @mouseenter="mouseOutsideModal = false"
+    >
+        <div class="left">
+            <div class="image">
+                <img
+                    :src="productSelected.image"
+                    :alt="productSelected.name"
+                />
+            </div>
+        </div>
+        <div class="right">
+            <div class="header">
+                <div class="name">{{ productSelected.name }}</div>
+                <!-- <div class="price">${{ productSelected.price.toFixed(2) }}</div> -->
+            </div>
+            <div class="content">
+                <div>{{ productSelected.ingredients }}</div>
+            </div>
+            <div class="bottom">
+                <div class="quantity-select">
+                    <div class="quantity">{{ productSelected.quantity ? productSelected.quantity : 0 }}</div>
+                    <div class="amount-buttons">
+                        <div
+                            class="plus"
+                            @click="addToSelectedProduct"
+                        >+</div>
+                        <div
+                            class="minus"
+                            @click="subtractFromSelectedProduct"
+                        >-</div>
+                    </div>
+                </div>
+                <div
+                    class="add-to-card"
+                    @click="addToCart(productSelected)"
+                >ADD TO CARD</div>
             </div>
         </div>
     </div>
@@ -156,10 +203,12 @@ export default {
         Navbar
     },
 
-
     data() {
         return {
             isMobile: false,
+            productModalOpen: false,
+            productSelected: {},
+            mouseOutsideModal: false,
             products: [
                 {
                     name: 'Anglers',
@@ -237,9 +286,30 @@ export default {
                 this.isMobile = false;
             }
         });
+
+        // retrieve cached items from local storage
+        const items = JSON.parse(localStorage.getItem('basketItems'));
+        if (items) {
+            this.$store.commit('setBasketItems', items);
+        }
+
+        // detect mouse click, if mouseoutsideModal is true, close modal
+        window.addEventListener('click', (event) => {
+            if (this.mouseOutsideModal) {
+                this.mouseOutsideModal = false;
+                this.productModalOpen = false;
+            }
+        });
     },
     methods: {
         addToCart(product) {
+
+            // close modal
+            this.productModalOpen = false;
+
+            this.productSelected = {};
+
+            if (!product.quantity || product.quantity === 0) return;
 
             // get store items
             const items = this.$store.getters.basketItems;
@@ -254,7 +324,29 @@ export default {
             }
 
             // add to store card
-            this.$store.commit('addToBasket', { name: product.name, price: product.price, image: product.image, quantity: 1 });
+            this.$store.commit('addToBasket', { name: product.name, price: product.price, image: product.image, quantity: product.quantity });
+        },
+        openProductModal(product) {
+            this.productSelected = product;
+            this.productModalOpen = true;
+        },
+        addToSelectedProduct() {
+            // add new quantity object field to selected product
+            if (!this.productSelected.quantity) {
+                this.productSelected.quantity = 1;
+                this.$forceUpdate();
+                return;
+            }
+
+            this.productSelected.quantity += 1;
+            this.$forceUpdate();
+        },
+        subtractFromSelectedProduct() {
+            // if there is not quantity then there are not items to subtract so return
+            if (!this.productSelected.quantity) return;
+            if (this.productSelected.quantity === 1) return;
+            this.productSelected.quantity -= 1;
+            this.$forceUpdate();
         }
     },
 
@@ -267,6 +359,10 @@ export default {
 >
 .coffeeco {
     background-color: #FAF6EF;
+
+    &.obfuscate {
+        filter: blur(3px);
+    }
 
     .banner-container {
         /* background image using  ben-stern-wQNHTxEhIr8-unsplash.jp*/
@@ -822,6 +918,124 @@ export default {
             }
         }
 
+    }
+}
+
+.product-modal {
+    filter: brightness(100%);
+    background-color: white;
+    border: 1px solid #cbcbcb;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+    display: flex;
+
+    .left {
+        width: 50%;
+        padding-right: 20px;
+
+        .image {
+            img {
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+            }
+        }
+    }
+
+    .right {
+        width: 50%;
+        padding-left: 20px;
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-bottom: 20px;
+
+            .name {
+                font-size: 24px;
+                font-weight: bold;
+            }
+
+            .price {
+                font-size: 20px;
+                color: gray;
+            }
+        }
+
+        .content {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .bottom {
+            display: flex;
+            justify-content: space-between;
+            position: fixed;
+            bottom: 20px;
+            width: 270px;
+
+            .quantity-select {
+                display: flex;
+                align-items: center;
+
+                .quantity {
+                    font-size: 20px;
+                    font-weight: bold;
+                    margin-right: 10px;
+
+                    padding: 15px;
+                    background-color: rgb(214, 214, 214);
+                    width: 70px;
+                    height: 70px;
+                    height: 70px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                .amount-buttons {
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+
+                    div {
+                        font-size: 20px;
+                        font-weight: bold;
+                        cursor: pointer;
+                        width: 30px;
+                        background-color: rgb(204, 204, 204);
+
+                        &:hover {
+                            background-color: #ffcc00;
+                        }
+                    }
+
+                    .plus {
+                        margin-bottom: 10px;
+                    }
+
+                }
+            }
+
+            .add-to-card {
+                padding: 10px 20px;
+                background-color: #ffcc00;
+                cursor: pointer;
+
+                display: flex;
+                align-items: center;
+
+                &:hover {
+                    background-color: #ffdb4a;
+                    transition: background-color 0.5s;
+                }
+            }
+        }
     }
 }
 </style>

@@ -179,6 +179,8 @@
     <div
         v-if="isBasketOpen"
         class="basket"
+        @mouseenter="mouseOutsideBasket = false"
+        @mouseleave="mouseOutsideBasket = true"
     >
         <div class="top-container">
             <div
@@ -264,7 +266,8 @@ export default {
         return {
             scrolled: false,
             mobileMenuVisible: false,
-            isBasketOpen: false
+            isBasketOpen: false,
+            mouseOutsideBasket: false,
         }
     },
 
@@ -289,6 +292,14 @@ export default {
     mounted() {
         // detect scroll down, if window not at top of page, add class to navbar
         window.addEventListener('scroll', this.handleScroll);
+
+        // close basket if mouse is clicked outside of basket
+        window.addEventListener('click', (e) => {
+            if (this.isBasketOpen && this.mouseOutsideBasket) {
+                this.mouseOutsideBasket = false;
+                this.isBasketOpen = false;
+            }
+        });
     },
 
     methods: {

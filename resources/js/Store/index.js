@@ -9,17 +9,25 @@ export const store = createStore({
     mutations: {
         addToBasket(state, item) {
             state.basketItems.push(item);
+            // save in cache
+            localStorage.setItem('basketItems', JSON.stringify(state.basketItems));
         },
         removeFromBasket(state, item) {
             state.basketItems = state.basketItems.filter(i => i.name !== item.name);
+            localStorage.setItem('basketItems', JSON.stringify(state.basketItems));
         },
         clearBasket(state) {
             state.basketItems = [];
+            localStorage.setItem('basketItems', JSON.stringify(state.basketItems));
         },
         incrementQuantity(state, item) {
             const basketItem = state.basketItems.find(i => i.name === item.name);
-            basketItem.quantity++;
-        }
+            basketItem.quantity += item.quantity;
+            localStorage.setItem('basketItems', JSON.stringify(state.basketItems));
+        },
+        setBasketItems(state, items) {
+            state.basketItems = items;
+        },
     },
     actions: {
         addToBasket(context, item) {

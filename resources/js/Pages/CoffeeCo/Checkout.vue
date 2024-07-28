@@ -1,10 +1,13 @@
 <template>
-    <div class="checkout">
+    <div
+        class="checkout"
+        :class="paymentSuccess ? 'obfuscate' : ''"
+    >
         <div class="header">
             <div
                 class="button"
                 @click="navHome"
-            >COFFEE RUN ROASTER</div>
+            >COFFEE RUN ROASTERS</div>
         </div>
         <div class="content">
             <div class="form">
@@ -297,14 +300,17 @@
                 <div class="payment">
                     <label>PAYMENT</label>
                     <div class="content-container">
-                        <div class="credit-card">
+                        <div
+                            class="credit-card"
+                            @click="paymentSelected('credit')"
+                            :style="{ backgroundColor: creditSelected ? 'white' : '#faf6ef' }"
+                        >
                             <div class="top">
                                 <div class="left">
                                     <div class="checkbox">
                                         <div
                                             class="box"
                                             :class="creditSelected ? 'active' : ''"
-                                            @click="creditSelected = !creditSelected"
                                         ></div>
                                     </div>
                                     Credit Card
@@ -412,12 +418,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="paypal">
+                        <div
+                            class="paypal"
+                            @click="paymentSelected('paypal')"
+                            :style="{ backgroundColor: paypalSelected ? 'white' : '#faf6ef' }"
+                        >
                             <div class="checkbox">
                                 <div
                                     class="box"
                                     :class="paypalSelected ? 'active' : ''"
-                                    @click="paypalSelected = !paypalSelected"
                                 ></div>
                             </div>
                             <svg
@@ -497,12 +506,15 @@
                                 </g>
                             </svg>
                         </div>
-                        <div class="googlepay">
+                        <div
+                            class="googlepay"
+                            @click="paymentSelected('googlepay')"
+                            :style="{ backgroundColor: googlepaySelected ? 'white' : '#faf6ef' }"
+                        >
                             <div class="checkbox">
                                 <div
                                     class="box"
                                     :class="googlepaySelected ? 'active' : ''"
-                                    @click="googlepaySelected = !googlepaySelected"
                                 ></div>
 
                             </div>
@@ -555,8 +567,11 @@
                     </div>
                 </div>
 
-                <div class="place-order">
-                    PLACEORDER
+                <div
+                    class="place-order"
+                    @click="placeOrder"
+                >
+                    PLACE ORDER
                 </div>
             </div>
             <div class="order-summary">
@@ -579,24 +594,11 @@
                             <div class="item-details">
                                 <div class="item-name">{{ item.name }}</div>
 
-                                <div class="item-quantity">Quantity: {{ item.quantity }}</div>
+                                <div class="item-quantity">Qty: {{ item.quantity }}</div>
                             </div>
                             <div class="price">
                                 <div class="item-price">${{ item.price.toFixed(2) }}</div>
                             </div>
-                            <!-- <div
-                                class="item-remove"
-                                @click="removeFromBasket(item)"
-                            >
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 448 512"
-                                >
-                                    <path
-                                        d="M135.2 17.7L128 32 32 32C14.3 32 0 46.3 0 64S14.3 96 32 96l384 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-96 0-7.2-14.3C307.4 6.8 296.3 0 284.2 0L163.8 0c-12.1 0-23.2 6.8-28.6 17.7zM416 128L32 128 53.2 467c1.6 25.3 22.6 45 47.9 45l245.8 0c25.3 0 46.3-19.7 47.9-45L416 128z"
-                                    />
-                                </svg>
-                            </div> -->
                         </div>
                     </div>
                     <div class="price-breakdown">
@@ -606,21 +608,56 @@
                         </div>
                         <div class="shipping">
                             <div class="label">Shipping</div>
-                            <div class="price">$10.00</div>
+                            <div class="price">{{ basketTotalPrice > 50 ? 'Free' : '$10.00' }}</div>
                         </div>
                         <div class="tax">
                             <div class="label">Tax</div>
-                            <div class="price">${{ basketTotal }}</div>
+                            <div class="price">${{ basketTotalPrice > 50 ? '0.00' : '1.13' }}</div>
                         </div>
                     </div>
                     <div class="total">
                         <div class="label">Total (CAD)</div>
-                        <div class="price">${{ basketTotalPrice + 10.00 + 1.13 }}</div>
+                        <div class="price">${{ calculateTotal }}</div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="footer"></div>
+    </div>
+    <div
+        class="modal"
+        v-if="paymentSuccess"
+    >
+        <div class="modal-content">
+            <div
+                v-if="modalLoading"
+                class="loading"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                >
+                    <path
+                        d="M304 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 416a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM48 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm464-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM142.9 437A48 48 0 1 0 75 369.1 48 48 0 1 0 142.9 437zm0-294.2A48 48 0 1 0 75 75a48 48 0 1 0 67.9 67.9zM369.1 437A48 48 0 1 0 437 369.1 48 48 0 1 0 369.1 437z"
+                    />
+                </svg>
+            </div>
+            <div
+                v-if="!modalLoading"
+                class="modal-header"
+            >
+                <h2>Payment Successful</h2>
+            </div>
+            <div
+                v-if="!modalLoading"
+                class="modal-body
+                "
+            >
+                <p>Thank you for your order. Your payment was successful.</p>
+
+                <button @click="navHome">Continue Shopping</button>
+
+            </div>
+        </div>
     </div>
 </template>
 
@@ -640,6 +677,8 @@ export default {
             creditSelected: false,
             paypalSelected: false,
             googlepaySelected: false,
+            paymentSuccess: false,
+            modalLoading: true,
         };
     },
     computed: {
@@ -654,12 +693,51 @@ export default {
             // ensure total price has 2 decimal places
             return this.$store.getters.basketTotalPrice.toFixed(2);
         },
+        calculateTotal() {
+            if (this.basketTotalPrice > 50) {
+                return this.basketTotalPrice;
+            } else {
+                return (this.basketTotalPrice * 1.13 + 10).toFixed(2);
+            }
+        },
+    },
+    mounted() {
+        // retrieve cached items from local storage
+        const items = JSON.parse(localStorage.getItem('basketItems'));
+        if (items) {
+            this.$store.commit('setBasketItems', items);
+        }
     },
     methods: {
         navHome() {
             // inertia home
             this.$inertia.visit('/coffeeco');
-        }
+        },
+        paymentSelected(payment) {
+            if (payment === 'credit') {
+                this.creditSelected = true;
+                this.paypalSelected = false;
+                this.googlepaySelected = false;
+            } else if (payment === 'paypal') {
+                this.creditSelected = false;
+                this.paypalSelected = true;
+                this.googlepaySelected = false;
+            } else if (payment === 'googlepay') {
+                this.creditSelected = false;
+                this.paypalSelected = false;
+                this.googlepaySelected = true;
+            }
+        },
+        placeOrder() {
+            // simulate payment processing
+            this.paymentSuccess = true;
+
+
+
+            setTimeout(() => {
+                this.modalLoading = false;
+            }, 2000);
+        },
     },
 };
 </script>
@@ -671,17 +749,28 @@ export default {
 .checkout {
     background-color: #FAF6EF;
 
+    &.obfuscate {
+        filter: blur(3px);
+    }
+
     .header {
         height: 150px;
         display: flex;
         align-items: center;
         justify-content: center;
         box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: white;
 
         .button {
             padding: 20px;
             border: 2px solid black;
             font-weight: bold;
+            cursor: pointer;
+
+            &:hover {
+                background-color: black;
+                color: white;
+            }
         }
     }
 
@@ -690,9 +779,10 @@ export default {
         width: fit-content;
         display: flex;
         margin-top: 50px;
+        padding-bottom: 50px;
 
         .form {
-            width: 500px;
+            width: 700px;
             margin-right: 20px;
 
             .checkout-faster {
@@ -721,7 +811,7 @@ export default {
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        width: 280px;
+                        width: 50%;
                         height: 40px;
 
                         svg {
@@ -736,7 +826,7 @@ export default {
                         align-items: center;
                         border-radius: 5px;
                         background-color: black;
-                        width: 280px;
+                        width: 50%;
                         height: 40px;
                         cursor: pointer;
 
@@ -894,7 +984,7 @@ export default {
                             color: #6b7280;
                             border-color: #dfdfdf;
                             border-radius: 5px;
-                            width: 245px;
+                            width: 49%;
                             box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
                         }
                     }
@@ -907,6 +997,7 @@ export default {
 
                     .credit-card {
                         background-color: white;
+                        cursor: pointer;
 
                         .top {
                             display: flex;
@@ -927,7 +1018,6 @@ export default {
                                         border-radius: 5px;
                                         height: 20px;
                                         width: 20px;
-                                        cursor: pointer;
                                     }
 
                                     .box.active {
@@ -974,7 +1064,7 @@ export default {
                         }
 
                         .bottom {
-                            padding: 0 20px 20px 20px;
+                            padding: 0 60px 20px 60px;
 
                             .row {
                                 .input-container {
@@ -984,7 +1074,7 @@ export default {
                                     input {
                                         border-color: #dfdfdf;
                                         border-radius: 5px;
-                                        width: 225px;
+                                        width: 49%;
                                         box-shadow: inset 0px 1px 2px rgba(0, 0, 0, 0.2);
                                     }
                                 }
@@ -999,6 +1089,7 @@ export default {
                         display: flex;
                         padding: 20px;
                         border-top: 1px solid #c5c5c5;
+                        cursor: pointer;
 
                         .checkbox {
                             margin-right: 10px;
@@ -1010,7 +1101,6 @@ export default {
                                 border-radius: 5px;
                                 height: 20px;
                                 width: 20px;
-                                cursor: pointer;
                             }
 
                             .box.active {
@@ -1086,13 +1176,14 @@ export default {
             height: fit-content;
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
             color: #707070;
+            width: 400px;
 
             .summary-container {
                 background-color: white;
                 border: 1px solid #ededed;
                 border-radius: 5px;
 
-                width: 300px;
+                width: 100%;
 
                 .title {
                     margin-bottom: 10px;
@@ -1109,7 +1200,6 @@ export default {
                     .item {
                         display: flex;
                         margin-bottom: 10px;
-                        border-bottom: 1px solid #c5c5c5;
                         padding-bottom: 10px;
 
                         img {
@@ -1138,6 +1228,7 @@ export default {
                     .tax {
                         display: flex;
                         justify-content: space-between;
+                        margin-bottom: 10px;
                     }
                 }
 
@@ -1146,20 +1237,94 @@ export default {
                     justify-content: space-between;
                     padding: 15px;
 
-                    .left {
-                        color: #6b7280;
+                    .label {
+                        display: flex;
+                        align-items: center;
                     }
 
-                    .right {
+                    .price {
                         font-weight: bold;
+                        font-size: 22px;
                     }
                 }
             }
         }
     }
+}
 
-    .footer {
-        height: 400px;
+.modal {
+    filter: brightness(100%);
+    background-color: white;
+    border: 1px solid #cbcbcb;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 5px;
+
+    width: 400px;
+    height: 230px;
+
+    display: flex;
+
+    .modal-header {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
     }
+
+    .modal-content {
+        width: fit-content;
+        margin: auto;
+
+        .loading {
+
+            width: 60px;
+            fill: #ffd140;
+
+            /* animate svg to rotate */
+            svg {
+                animation: rotate 2s linear infinite;
+
+                @keyframes rotate {
+                    100% {
+                        transform: rotate(360deg);
+                    }
+                }
+            }
+
+        }
+
+        .modal-body {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+
+            p {
+                font-weight: bold;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            button {
+                cursor: pointer;
+                border: 1px solid #949494;
+                padding: 10px;
+                margin-top: 20px;
+
+                &:hover {
+                    background-color: black;
+                    color: white;
+                }
+            }
+        }
+    }
+
+
+
+
+
+
 }
 </style>
