@@ -16,14 +16,6 @@ use Inertia\Inertia;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
 
 Route::get('/', function () {
     return Inertia::render('Main');
@@ -38,6 +30,12 @@ Route::get('/coffeeco', function () {
 Route::get('/coffeeco/checkout', function () {
     return Inertia::render('CoffeeCo/Checkout');
 })->name('checkout');
+
+
+Route::get('/coffeeco/products', function () {
+    return Inertia::render('CoffeeCo/Products');
+})->name('products');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

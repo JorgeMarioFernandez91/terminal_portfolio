@@ -4,7 +4,10 @@
         class="navbar"
         :class="{ 'scrolled': scrolled }"
     >
-        <div class="logo">
+        <div
+            class="logo"
+            @click="navTo('')"
+        >
             <svg
                 height="80"
                 viewBox="0 0 76 52"
@@ -50,10 +53,8 @@
         </div>
         <div class="links">
             <ul>
-                <li>Coffee</li>
-                <li>Apparel</li>
-                <li>Gear</li>
-                <li>Subscriptions</li>
+                <li @click="navTo('products')">Products</li>
+                <!-- <li>Subscriptions</li> -->
                 <li>Locations</li>
                 <li>About</li>
                 <li>Contact</li>
@@ -257,7 +258,7 @@
                 <!-- <div class="view-cart">VIEW CART</div> -->
                 <div
                     class="checkout"
-                    @click="checkout()"
+                    @click="navTo('checkout')"
                 >CHECKOUT</div>
             </div>
 
@@ -298,10 +299,6 @@ export default {
             // ensure total price has 2 decimal places
             return this.$store.getters.basketTotalPrice.toFixed(2);
         },
-        checkout() {
-            //use inertia
-            this.$inertia.visit('/coffeeco/checkout');
-        }
     },
 
     mounted() {
@@ -323,6 +320,9 @@ export default {
         },
         removeFromBasket(item) {
             this.$store.dispatch('removeFromBasket', item);
+        },
+        navTo(page) {
+            this.$inertia.visit("/coffeeco/" + page);
         }
     }
 }
@@ -345,7 +345,11 @@ export default {
 
     z-index: 10;
 
+    color: white;
+
     .logo {
+        cursor: pointer;
+
         svg {
             height: 80px;
             fill: white;
