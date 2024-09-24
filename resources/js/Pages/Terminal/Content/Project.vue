@@ -39,4 +39,4 @@ h1 {
 p {
     font-size: 16px;
 }
-</style></template>
+</style>
