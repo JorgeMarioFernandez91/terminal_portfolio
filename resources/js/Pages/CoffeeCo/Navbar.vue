@@ -55,11 +55,12 @@
             <ul>
                 <li @click="navTo('products')">Products</li>
                 <!-- <li>Subscriptions</li> -->
-                <li>Locations</li>
+                <li @click="navTo('locations')">Locations</li>
                 <li>About</li>
                 <li>Contact</li>
                 <li
-                    class="basket-icon"
+                    class="
+                    basket-icon"
                     @click="isBasketOpen = true"
                 ><svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +79,10 @@
         class="navbar-mobile"
         :class="{ 'scrolled': scrolled }"
     >
-        <div class="logo">
+        <div
+            class="logo"
+            @click="navTo('')"
+        >
             <svg
                 height="80"
                 viewBox="0 0 76 52"

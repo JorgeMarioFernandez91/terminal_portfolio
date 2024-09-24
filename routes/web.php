@@ -36,6 +36,11 @@ Route::get('/coffeeco/products', function () {
     return Inertia::render('CoffeeCo/Products');
 })->name('products');
 
+// locations
+Route::get('/coffeeco/locations', function () {
+    return Inertia::render('CoffeeCo/Locations');
+})->name('locations');
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
