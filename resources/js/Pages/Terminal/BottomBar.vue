@@ -33,7 +33,7 @@
                     :class="{ active: view === 'projects' }"
                     @click="switchView('projects')"
                 >projects</div>
-                <div
+                <!-- <div
                     class="guest-book"
                     :class="{ active: view === 'guest-book' }"
                     @click="switchView('guest-book')"
@@ -42,7 +42,7 @@
                     class="articles"
                     :class="{ active: view === 'articles' }"
                     @click="switchView('articles')"
-                >articles</div>
+                >articles</div> -->
             </div>
             <div class="misc">
                 <div

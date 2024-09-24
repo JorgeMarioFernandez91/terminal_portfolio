@@ -1,1 +1,0 @@
-import{_ as o}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{f as t,o as e}from"./app-BU0E6zdd.js";const s={name:"GuestBook",data(){return{}},methods:{},mounted(){}},a={class:"guest-book"};function c(r,n,_,d,p,f){return e(),t("div",a)}const i=o(s,[["render",c],["__scopeId","data-v-d3c8f755"]]);export{i as default};
