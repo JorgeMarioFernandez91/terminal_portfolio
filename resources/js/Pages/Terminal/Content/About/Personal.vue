@@ -133,6 +133,35 @@ export default {
             color: #888;
         }
 
+        opacity: 0;
+        /* animate to fade up forwards */
+        animation: fadeInUp 1s ease-out forwards;
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .text {
+            /* animate moving right to left */
+            animation: moveRightToLeft 1s ease-out forwards;
+
+            @keyframes moveRightToLeft {
+                from {
+                    transform: translateX(10%);
+                }
+
+                to {
+                    transform: translateX(0);
+                }
+            }
+        }
+
         .template,
         .div,
         .p {

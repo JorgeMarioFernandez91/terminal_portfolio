@@ -1,9 +1,10 @@
 <template>
     <div class="projects">
         <div
-            v-for="project in projects"
+            v-for="(project, index) in projects"
             :key="project.title"
             class="project"
+            :class="'label-' + index"
             @click="openModal(project)"
         >
             <div class="top">
@@ -134,10 +135,11 @@ export default {
             ],
         };
     },
-    methods: {
-        openProject(title) {
+    mounted() {
 
-        },
+
+    },
+    methods: {
         openLink(title) {
             window.open(title, '_blank');
         },
@@ -177,6 +179,38 @@ export default {
         border-radius: 5px;
         margin: 0 10px;
         cursor: pointer;
+
+        &.label-0,
+        &.label-1,
+        &.label-2,
+        &.label-3 {
+            opacity: 0;
+            animation: fadeIn 2s ease-out forwards;
+        }
+
+        &.label-1 {
+            animation-delay: 0.5s;
+        }
+
+        &.label-2 {
+            animation-delay: 1s;
+        }
+
+        &.label-3 {
+            animation-delay: 1.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(3000px);
+            }
+        }
 
         .top {
             .image {
@@ -251,6 +285,20 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
+
+        /* fade in project modal */
+        animation: fadeIn 0.5s ease-out forwards;
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
 
         .modal-body {
             border: 1px solid rgb(105, 105, 105);
