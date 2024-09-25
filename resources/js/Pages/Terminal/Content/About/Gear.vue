@@ -32,7 +32,7 @@
 
                 <!-- software -->
                 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
-                        class="p">p</span>{{ close() }}Software: VS Code, iTerm2, Google Chrome, Spotify
+                        class="p">p</span>{{ close() }}Software: VS Code, Figma, Github/Gitlab, Firefox/Chrome, Spotify
                     {{ open() }}/<span class="p">p</span>{{ close() }} </div>
 
                 <!-- os -->

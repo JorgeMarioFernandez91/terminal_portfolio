@@ -33,15 +33,15 @@
                         open() }}/<span class="p">p</span>{{ close() }}</div>
 
                 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
-                        class="p">p</span>{{ close() }}Hobbies: Programming, Reading,
-                    Gaming{{ open() }}/<span class="p">p</span>{{ close() }}</div>
+                        class="p">p</span>{{ close() }}Hobbies: Programming, Reading, Rock Climbing/Bouldering,
+                    History, Running{{ open() }}/<span class="p">p</span>{{ close() }}</div>
 
-                <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
+                <!-- <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
                         class="p">p</span>{{ close() }}Skills: HTML, CSS, JavaScript,
-                    PHP, Laravel, Vue.js{{ open() }}/<span class="p">p</span>{{ close() }}</div>
+                    PHP, Laravel, Vue.js{{ open() }}/<span class="p">p</span>{{ close() }}</div> -->
 
                 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
-                        class="p">p</span>{{ close() }}Education: Computer Science{{
+                        class="p">p</span>{{ close() }}Education: Computer Science, Health Science{{
                         open() }}/<span class="p">p</span>{{ close() }}</div>
 
 

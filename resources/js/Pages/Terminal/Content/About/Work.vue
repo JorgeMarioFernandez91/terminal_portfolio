@@ -28,18 +28,19 @@
 
                 <!-- employer: rentsync -->
                 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
-                        class="p">p</span>{{ close() }}Employer: Rentsync, IBM, CoffeeCo. {{ open() }}/<span
+                        class="p">p</span>{{ close() }}Employers: Rentsync, IBM, CoffeeCo. {{ open() }}/<span
                         class="p">p</span>{{ close()
                     }} </div>
 
                 <!-- programming languages -->
                 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
-                        class="p">p</span>{{ close() }}Programming Languages: HTML, CSS, JavaScript, PHP, MySQL
+                        class="p">p</span>{{ close() }}Programming Languages: HTML, CSS/SCSS, JavaScript, PHP, MySQL
                     {{ open() }}/<span class="p">p</span>{{ close() }} </div>
 
                 <!-- frameworks -->
                 <div class="line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ open() }}<span
-                        class="p">p</span>{{ close() }}Frameworks: Laravel, Vue.js, Bootstrap, TailwindCSS {{ open()
+                        class="p">p</span>{{ close() }}Frameworks: Laravel, Vue.js, PrimeVue, PrimeFlex, Bootstrap,
+                    TailwindCSS {{ open()
                     }}/<span class="p">p</span>{{ close() }} </div>
 
                 <!-- close div -->
