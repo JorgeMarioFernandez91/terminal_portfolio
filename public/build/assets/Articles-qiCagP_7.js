@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper-DlAUqK2U.js";import{f as t,o}from"./app-B3c0m2W8.js";const s={name:"Articles",data(){return{}},methods:{},mounted(){}},c={class:"articles"};function r(a,n,_,d,i,p){return o(),t("div",c)}const l=e(s,[["render",r],["__scopeId","data-v-0e3b8dc5"]]);export{l as default};
